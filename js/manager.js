@@ -140,9 +140,9 @@ const DFPManager = Object.assign(new EventEmitter().setMaxListeners(0), {
     }
   },
 
-  getGoogletag() {
+  getGoogletag(PreloadPromise=null) {
     if (googleGPTScriptLoadPromise === null) {
-      googleGPTScriptLoadPromise = Utils.loadGPTScript();
+      googleGPTScriptLoadPromise = Utils.loadGPTScript(PreloadPromise);
     }
     return googleGPTScriptLoadPromise;
   },

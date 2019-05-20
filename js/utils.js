@@ -15,8 +15,20 @@ function doloadGPTScript(resolve, reject) {
   document.getElementsByTagName('head')[0].appendChild(scriptTag);
 }
 
-export function loadGPTScript() {
+
+export function loadGPTScript(PreloadPromise=null) {
   return new Promise((resolve, reject) => {
-    doloadGPTScript(resolve, reject);
+    if( ! PreloadPromise ){
+      return doloadGPTScript(resolve, reject);
+    }
+    
+    return PreloadPromise
+      .then(() => {
+        return doloadGPTScript(resolve, reject);
+      })
+      .catch((reason) => {
+        return doloadGPTScript(resolve, reject);
+      })
+    ;
   });
 }
